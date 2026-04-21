@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heading Indicator Project</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <h1>Heading Indicator Simulator</h1>
+    <p class="subtitle">Move the slider to change heading.</p>
+
+    <div class="instrument-wrapper">
+      <div class="instrument">
+        <div class="lubber-line"></div>
+        <div class="heading-card" id="headingCard">
+          <div class="center-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label for="headingSlider">Heading: <span id="headingValue">0</span>°</label>
+      <input type="range" id="headingSlider" min="0" max="359" value="0" />
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

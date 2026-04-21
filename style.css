@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.page {
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #bbb;
+  margin-bottom: 30px;
+}
+
+.instrument-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.instrument {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border: 10px solid #333;
+  border-radius: 50%;
+  background: #000;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}
+
+.heading-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s linear;
+}
+
+.lubber-line {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 55px;
+  background: orange;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.center-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tick {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+}
+
+.tick-line {
+  position: absolute;
+  width: 4px;
+  height: 18px;
+  background: white;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.tick-label {
+  position: absolute;
+  left: 50%;
+  top: 32px;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.degree-label {
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #ddd;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+input[type="range"] {
+  width: 100%;
+  max-width: 420px;
+}
+.mark-line {
+  position: absolute;
+  width: 4px;
+  height: 18px;
+  background: white;
+  border-radius: 2px;
+}
+
+.mark-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.cardinal-label {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.degree-number {
+  font-size: 18px;
+  color: #ddd;
+}
