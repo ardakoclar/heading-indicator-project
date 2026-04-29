@@ -11,11 +11,21 @@
     <h1>Heading Indicator Simulator</h1>
     <p class="subtitle">Move the slider to change heading.</p>
 
+    <div class="top-bar">
+      <button id="greenModeBtn" class="mode-btn">Green Mode: OFF</button>
+    </div>
+
     <div class="instrument-wrapper">
       <div class="instrument">
+        <div class="heading-window" id="headingWindow">000</div>
         <div class="lubber-line"></div>
-        <div class="heading-card" id="headingCard">
-          <div class="center-dot"></div>
+
+        <div class="heading-card" id="headingCard"></div>
+
+        <div class="fixed-aircraft">
+          <div class="wing"></div>
+          <div class="body"></div>
+          <div class="tail"></div>
         </div>
       </div>
     </div>
