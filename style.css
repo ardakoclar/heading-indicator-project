@@ -127,7 +127,7 @@ h1 {
   position: absolute;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: white;
+  color: rgb(255, 123, 0);
 }
 
 .cardinal-label {
