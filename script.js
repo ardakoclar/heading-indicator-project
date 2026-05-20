@@ -8,17 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const demoBtn = document.getElementById("demoBtn");
   const failBtn = document.getElementById("failBtn");
   const warningBox = document.getElementById("warningBox");
-  const failFlag = document.getElementById("failFlag");
   const instrument = document.getElementById("instrument");
 
   let isFailed = false;
-  let demoRunning = false;
   let demoInterval = null;
+  let demoRunning = false;
 
   function createMarks() {
     headingCard.innerHTML = "";
 
-    const size = headingCard.clientWidth || 340;
+    const size = headingCard.clientWidth;
     const center = size / 2;
     const markRadius = size * 0.44;
     const labelRadius = size * 0.36;
@@ -77,64 +76,82 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function toggleGreenMode() {
     document.body.classList.toggle("green-mode");
-    greenModeBtn.textContent = document.body.classList.contains("green-mode")
-      ? "Green Mode: ON"
-      : "Green Mode: OFF";
-  }
 
-  function stopDemoFlight() {
-    clearInterval(demoInterval);
-    demoInterval = null;
-    demoRunning = false;
-    demoBtn.textContent = "Start Demo Flight";
-  }
-
-  function toggleDemoFlight() {
-    if (isFailed) return;
-
-    if (demoRunning) {
-      stopDemoFlight();
-      return;
+    if (document.body.classList.contains("green-mode")) {
+      greenModeBtn.textContent = "Green Mode: ON";
+    } else {
+      greenModeBtn.textContent = "Green Mode: OFF";
     }
-
-    const demoSequence = [
-      0, 10, 20, 30, 45, 60, 75, 90,
-      105, 120, 135, 150, 165, 180,
-      200, 220, 240, 260, 280, 300,
-      320, 340, 359, 330, 300, 270,
-      240, 210, 180, 150, 120, 90,
-      60, 30, 0
-    ];
-
-    let index = 0;
-    demoRunning = true;
-    demoBtn.textContent = "Stop Demo Flight";
-
-    demoInterval = setInterval(function () {
-      if (index >= demoSequence.length) {
-        stopDemoFlight();
-        return;
-      }
-
-      headingSlider.value = demoSequence[index];
-      updateHeading();
-      index++;
-    }, 450);
   }
 
   function toggleFailure() {
     isFailed = !isFailed;
 
     if (isFailed) {
-      stopDemoFlight();
-      instrument.classList.add("failed");
-      failFlag.classList.remove("hidden");
       warningBox.classList.remove("hidden");
+      instrument.classList.add("failed");
       failBtn.textContent = "Recover Instrument";
     } else {
-      instrument.classList.remove("failed");
-      failFlag.classList.add("hidden");
       warningBox.classList.add("hidden");
+      instrument.classList.remove("failed");
       failBtn.textContent = "Trigger Failure";
       updateHeading();
-   
+    }
+  }
+
+  function toggleDemoFlight() {
+    if (demoRunning) {
+      clearInterval(demoInterval);
+      demoInterval = null;
+      demoRunning = false;
+      demoBtn.textContent = "Start Demo Flight";
+      return;
+    }
+
+    const demoSequence = [
+      0, 15, 30, 45, 60, 90, 120, 150, 180,
+      210, 240, 270, 300, 330, 359, 330, 300,
+      270, 240, 210, 180, 150, 120, 90, 60, 30, 0
+    ];
+
+    let index = 0;
+    demoRunning = true;
+    demoBtn.textContent = "Stop Demo Flight";
+
+    demoInterval = setInterval(() => {
+      if (index >= demoSequence.length) {
+        clearInterval(demoInterval);
+        demoInterval = null;
+        demoRunning = false;
+        demoBtn.textContent = "Start Demo Flight";
+        return;
+      }
+
+      headingSlider.value = demoSequence[index];
+      updateHeading();
+      index++;
+    }, 500);
+  }
+
+  createMarks();
+  updateHeading();
+
+  headingSlider.addEventListener("input", updateHeading);
+
+  if (greenModeBtn) {
+    greenModeBtn.addEventListener("click", toggleGreenMode);
+  }
+
+  if (demoBtn) {
+    demoBtn.addEventListener("click", toggleDemoFlight);
+  }
+
+  if (failBtn) {
+    failBtn.addEventListener("click", toggleFailure);
+  }
+
+  window.addEventListener("resize", function () {
+    createMarks();
+    updateHeading();
+  });
+});
