@@ -12,7 +12,7 @@
     <p class="subtitle">Move the slider to change heading.</p>
 
     <div class="top-bar">
-      <button id="greenModeBtn" class="mode-btn">Green Mode: OFF</button>
+      <button id="greenModeBtn" class="mode-btn" type="button">Green Mode: OFF</button>
     </div>
 
     <div class="instrument-wrapper">
@@ -26,6 +26,12 @@
           <div class="wing"></div>
           <div class="body"></div>
           <div class="tail"></div>
+          <div class="center-ring-fixed"></div>
+        </div>
+
+        <div id="warningBox" class="failure-overlay">
+          <div class="failure-text">FAIL</div>
+          <div class="failure-subtext">INSTRUMENT</div>
         </div>
       </div>
     </div>
@@ -36,12 +42,8 @@
     </div>
 
     <div class="extra-controls">
-      <button id="demoBtn">Start Demo Flight</button>
-      <button id="failBtn">Trigger Failure</button>
-    </div>
-
-    <div id="warningBox" class="warning-box hidden">
-      INSTRUMENT FAILURE
+      <button id="demoBtn" type="button">Start Demo Flight</button>
+      <button id="failBtn" type="button">Trigger Failure</button>
     </div>
   </div>
 

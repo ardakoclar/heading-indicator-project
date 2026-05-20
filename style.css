@@ -11,23 +11,25 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .page {
   text-align: center;
   width: 100%;
-  max-width: 700px;
-  padding: 20px;
+  max-width: 760px;
+  padding: 20px 20px 28px;
 }
 
 h1 {
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
   font-size: 48px;
+  line-height: 1.1;
 }
 
 .subtitle {
-  color: #bbb;
-  margin-bottom: 18px;
+  color: #bdbdbd;
+  margin: 0 0 20px 0;
   font-size: 18px;
 }
 
@@ -40,7 +42,7 @@ h1 {
   background: #1b1b1b;
   color: white;
   border: 2px solid #555;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 12px 20px;
   font-size: 18px;
   cursor: pointer;
@@ -61,8 +63,8 @@ h1 {
 
 .instrument {
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: 360px;
+  height: 360px;
   border: 12px solid #3a3a3a;
   border-radius: 50%;
   background: #000;
@@ -78,51 +80,53 @@ h1 {
   height: 100%;
   border-radius: 50%;
   transition: transform 0.2s linear;
+  transform: rotate(0deg);
 }
 
 .heading-window {
   position: absolute;
-  top: 14px;
+  top: 18px;
   left: 50%;
   transform: translateX(-50%);
   min-width: 92px;
   padding: 8px 14px;
   background: #101010;
   border: 2px solid #666;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 26px;
   font-weight: bold;
   letter-spacing: 3px;
-  z-index: 20;
+  z-index: 25;
 }
 
 .lubber-line {
   position: absolute;
-  top: 76px;
+  top: 92px;
   left: 50%;
   transform: translateX(-50%);
   width: 8px;
-  height: 42px;
+  height: 48px;
   background: orange;
   border-radius: 4px;
-  z-index: 19;
+  z-index: 24;
 }
 
 .mark-line {
   position: absolute;
+  transform-origin: center center;
   border-radius: 2px;
 }
 
 .major-mark {
   width: 4px;
-  height: 22px;
+  height: 24px;
   background: white;
 }
 
 .minor-mark {
   width: 2px;
-  height: 10px;
-  background: #cfcfcf;
+  height: 12px;
+  background: #d4d4d4;
 }
 
 .mark-label {
@@ -130,38 +134,24 @@ h1 {
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
+  user-select: none;
 }
 
 .cardinal-label {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
   color: orange;
 }
 
 .degree-number {
   font-size: 16px;
-  color: #dddddd;
-}
-
-.center-ring {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  border: 3px solid white;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  color: #e0e0e0;
 }
 
 .fixed-aircraft {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120px;
-  height: 120px;
-  transform: translate(-50%, -50%);
-  z-index: 15;
+  inset: 0;
+  z-index: 18;
   pointer-events: none;
 }
 
@@ -169,8 +159,8 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 84px;
-  height: 5px;
+  width: 104px;
+  height: 6px;
   background: white;
   transform: translate(-50%, -50%);
   border-radius: 3px;
@@ -180,8 +170,8 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 5px;
-  height: 56px;
+  width: 6px;
+  height: 66px;
   background: white;
   transform: translate(-50%, -50%);
   border-radius: 3px;
@@ -189,17 +179,28 @@ h1 {
 
 .tail {
   position: absolute;
-  top: 66px;
+  top: calc(50% + 18px);
   left: 50%;
-  width: 26px;
-  height: 5px;
+  width: 30px;
+  height: 6px;
   background: white;
   transform: translateX(-50%);
   border-radius: 3px;
 }
 
+.center-ring-fixed {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 4px solid white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .controls {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 label {
@@ -209,7 +210,7 @@ label {
 }
 
 input[type="range"] {
-  width: min(90vw, 600px);
+  width: min(92vw, 620px);
   cursor: pointer;
 }
 
@@ -221,29 +222,46 @@ input[type="range"] {
   flex-wrap: wrap;
 }
 
-.warning-box {
-  margin: 18px auto 0;
-  width: fit-content;
-  padding: 10px 18px;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  background: #b30000;
-  border: 2px solid #ff4d4d;
-  border-radius: 10px;
-  letter-spacing: 1px;
+.failure-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(120, 0, 0, 0.24);
+  backdrop-filter: blur(2px);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
-.hidden {
-  display: none;
+.failure-overlay.show {
+  opacity: 1;
+}
+
+.failure-text {
+  font-size: 60px;
+  font-weight: 900;
+  color: #ff3b3b;
+  letter-spacing: 4px;
+  text-shadow: 0 0 14px rgba(255, 59, 59, 0.85);
+}
+
+.failure-subtext {
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffd6d6;
+  letter-spacing: 2px;
 }
 
 .instrument.failed {
-  border-color: #b30000;
+  border-color: #a30000;
   box-shadow:
     0 0 28px rgba(255, 0, 0, 0.35),
     inset 0 0 26px rgba(255, 0, 0, 0.08);
-  filter: grayscale(0.35);
 }
 
 /* GREEN MODE */
@@ -261,7 +279,7 @@ body.green-mode .extra-controls button {
   background: #081408;
   color: #39ff14;
   border-color: #39ff14;
-  box-shadow: 0 0 12px rgba(57, 255, 20, 0.25);
+  box-shadow: 0 0 12px rgba(57, 255, 20, 0.22);
 }
 
 body.green-mode .instrument {
@@ -275,7 +293,7 @@ body.green-mode .heading-window {
   background: #081408;
   color: #39ff14;
   border-color: #39ff14;
-  box-shadow: 0 0 12px rgba(57, 255, 20, 0.2);
+  box-shadow: 0 0 12px rgba(57, 255, 20, 0.18);
 }
 
 body.green-mode .lubber-line,
@@ -287,9 +305,7 @@ body.green-mode .tail {
   background: #39ff14;
 }
 
-body.green-mode .mark-label,
-body.green-mode .center-ring {
-  color: #39ff14;
+body.green-mode .center-ring-fixed {
   border-color: #39ff14;
 }
 
@@ -297,9 +313,29 @@ body.green-mode .degree-number {
   color: #8eff8e;
 }
 
+body.green-mode .cardinal-label {
+  color: #39ff14;
+}
+
+body.green-mode .failure-overlay {
+  background: rgba(80, 0, 0, 0.28);
+}
+
+body.green-mode .failure-text {
+  color: #ff4d4d;
+}
+
+body.green-mode .failure-subtext {
+  color: #ffd0d0;
+}
+
 @media (max-width: 600px) {
+  .page {
+    padding: 18px 14px 24px;
+  }
+
   h1 {
-    font-size: 34px;
+    font-size: 36px;
   }
 
   .subtitle {
@@ -309,7 +345,7 @@ body.green-mode .degree-number {
   .mode-btn,
   .extra-controls button {
     font-size: 16px;
-    padding: 10px 18px;
+    padding: 10px 16px;
   }
 
   .instrument {
@@ -320,16 +356,16 @@ body.green-mode .degree-number {
   .heading-window {
     font-size: 22px;
     min-width: 82px;
-    top: 12px;
+    top: 14px;
   }
 
   .lubber-line {
-    top: 68px;
-    height: 36px;
+    top: 78px;
+    height: 40px;
   }
 
   .cardinal-label {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .degree-number {
@@ -338,5 +374,21 @@ body.green-mode .degree-number {
 
   label {
     font-size: 22px;
+  }
+
+  .failure-text {
+    font-size: 46px;
+  }
+
+  .failure-subtext {
+    font-size: 16px;
+  }
+
+  .wing {
+    width: 88px;
+  }
+
+  .body {
+    height: 56px;
   }
 }

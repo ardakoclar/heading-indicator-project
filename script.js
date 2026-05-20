@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const size = headingCard.clientWidth;
     const center = size / 2;
-    const markRadius = size * 0.44;
-    const labelRadius = size * 0.36;
+    const markRadius = size * 0.455;
+    const labelRadius = size * 0.365;
 
     for (let i = 0; i < 360; i += 10) {
       const angle = (i - 90) * (Math.PI / 180);
@@ -57,10 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         headingCard.appendChild(label);
       }
     }
-
-    const centerRing = document.createElement("div");
-    centerRing.className = "center-ring";
-    headingCard.appendChild(centerRing);
   }
 
   function updateHeading() {
@@ -84,11 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
     isFailed = !isFailed;
 
     if (isFailed) {
-      warningBox.classList.remove("hidden");
+      warningBox.classList.add("show");
       instrument.classList.add("failed");
       failBtn.textContent = "Recover Instrument";
     } else {
-      warningBox.classList.add("hidden");
+      warningBox.classList.remove("show");
       instrument.classList.remove("failed");
       failBtn.textContent = "Trigger Failure";
       updateHeading();
@@ -123,8 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      headingSlider.value = demoSequence[index];
-      updateHeading();
+      if (!isFailed) {
+        headingSlider.value = demoSequence[index];
+        updateHeading();
+      }
+
       index++;
     }, 500);
   }
