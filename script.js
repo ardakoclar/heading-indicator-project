@@ -84,3 +84,125 @@ document.addEventListener("DOMContentLoaded", function () {
     updateHeading();
   });
 });
+const headingSlider = document.getElementById("headingSlider");
+const headingValue = document.getElementById("headingValue");
+const headingCard = document.getElementById("headingCard");
+const demoBtn = document.getElementById("demoBtn");
+const failBtn = document.getElementById("failBtn");
+const warningBox = document.getElementById("warningBox");
+const instrument = document.querySelector(".instrument");
+
+const instrumentSize = 320;
+const center = instrumentSize / 2;
+
+let isFailed = false;
+let demoInterval = null;
+let demoRunning = false;
+
+function createMarks() {
+  headingCard.innerHTML = "";
+
+  for (let i = 0; i < 360; i += 30) {
+    const angle = (i - 90) * (Math.PI / 180);
+    const lineRadius = 125;
+    const labelRadius = 105;
+
+    const lineX = center + Math.cos(angle) * lineRadius;
+    const lineY = center + Math.sin(angle) * lineRadius;
+    const labelX = center + Math.cos(angle) * labelRadius;
+    const labelY = center + Math.sin(angle) * labelRadius;
+
+    const line = document.createElement("div");
+    line.className = "mark-line";
+    line.style.left = `${lineX}px`;
+    line.style.top = `${lineY}px`;
+    line.style.transform = `translate(-50%, -50%) rotate(${i}deg)`;
+    headingCard.appendChild(line);
+
+    const label = document.createElement("div");
+    const isCardinal = i === 0 || i === 90 || i === 180 || i === 270;
+
+    if (isCardinal) {
+      label.className = "mark-label cardinal-label";
+    } else {
+      label.className = "mark-label degree-number";
+    }
+
+    label.style.left = `${labelX}px`;
+    label.style.top = `${labelY}px`;
+
+    if (i === 0) label.textContent = "N";
+    else if (i === 90) label.textContent = "E";
+    else if (i === 180) label.textContent = "S";
+    else if (i === 270) label.textContent = "W";
+    else label.textContent = i;
+
+    headingCard.appendChild(label);
+  }
+}
+
+function updateHeading() {
+  const heading = Number(headingSlider.value);
+  headingValue.textContent = heading;
+
+  if (!isFailed) {
+    headingCard.style.transform = `rotate(${-heading}deg)`;
+  }
+}
+
+function toggleFailure() {
+  isFailed = !isFailed;
+
+  if (isFailed) {
+    warningBox.classList.remove("hidden");
+    instrument.classList.add("failed");
+    failBtn.textContent = "Recover Instrument";
+  } else {
+    warningBox.classList.add("hidden");
+    instrument.classList.remove("failed");
+    failBtn.textContent = "Trigger Failure";
+    updateHeading();
+  }
+}
+
+function toggleDemoFlight() {
+  if (demoRunning) {
+    clearInterval(demoInterval);
+    demoInterval = null;
+    demoRunning = false;
+    demoBtn.textContent = "Start Demo Flight";
+    return;
+  }
+
+  const demoSequence = [
+    0, 15, 30, 45, 60, 90, 120, 150, 180,
+    210, 240, 270, 300, 330, 360, 330, 300,
+    270, 240, 210, 180, 150, 120, 90, 60, 30, 0
+  ];
+
+  let index = 0;
+  demoRunning index = 0;
+  demoRunning = true;
+  demoBtn.textContent = "Stop Demo Flight";
+
+  demoInterval = setInterval(() => {
+    if (index >= demoSequence.length) {
+      clearInterval(demoInterval);
+      demoInterval = null;
+      demoRunning = false;
+      demoBtn.textContent = "Start Demo Flight";
+      return;
+    }
+
+    headingSlider.value = demoSequence[index];
+    updateHeading();
+    index++;
+  }, 500);
+}
+
+createMarks();
+updateHeading();
+
+headingSlider.addEventListener("input", updateHeading);
+demoBtn.addEventListener("click", toggleDemoFlight);
+failBtn.addEventListener("click", toggleFailure);

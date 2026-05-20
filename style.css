@@ -300,3 +300,49 @@ body.green-mode .degree-number {
     font-size: 22px;
   }
 }
+.extra-controls {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.extra-controls button {
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #222;
+  color: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.08);
+}
+
+.extra-controls button:hover {
+  background: #333;
+}
+
+.warning-box {
+  margin: 18px auto 0;
+  width: fit-content;
+  padding: 10px 18px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: #b30000;
+  border: 2px solid #ff4d4d;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+
+.hidden {
+  display: none;
+}
+
+.instrument.failed {
+  border-color: #b30000;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.45);
+  filter: grayscale(0.35);
+}
