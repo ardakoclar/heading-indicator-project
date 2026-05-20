@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heading Indicator Project</title>
-  <link rel="stylesheet" href="style.css?v=7" />
+  <title>Heading Indicator Simulator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="page">
@@ -12,14 +12,17 @@
     <p class="subtitle">Move the slider to change heading.</p>
 
     <div class="top-bar">
-      <button id="greenModeBtn" class="mode-btn" type="button">Green Mode: OFF</button>
+      <button id="greenModeBtn" class="mode-btn">Green Mode: OFF</button>
     </div>
 
     <div class="instrument-wrapper">
-      <div class="instrument">
+      <div class="instrument" id="instrument">
         <div class="heading-window" id="headingWindow">000</div>
         <div class="lubber-line"></div>
+
         <div class="heading-card" id="headingCard"></div>
+
+        <div id="failFlag" class="fail-flag hidden">FAIL</div>
 
         <div class="fixed-aircraft">
           <div class="wing"></div>
@@ -33,16 +36,17 @@
       <label for="headingSlider">Heading: <span id="headingValue">0</span>°</label>
       <input type="range" id="headingSlider" min="0" max="359" value="0" />
     </div>
+
+    <div class="extra-controls">
+      <button id="demoBtn">Start Demo Flight</button>
+      <button id="failBtn">Trigger Failure</button>
+    </div>
+
+    <div id="warningBox" class="warning-box hidden">
+      Instrument failure is active.
+    </div>
   </div>
 
-  <script src="script.js?v=7"></script>
-  <div class="extra-controls">
-  <button id="demoBtn">Start Demo Flight</button>
-  <button id="failBtn">Trigger Failure</button>
-</div>
-
-<div id="warningBox" class="warning-box hidden">
-  INSTRUMENT FAILURE
-</div>
+  <script src="script.js"></script>
 </body>
 </html>
