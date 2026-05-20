@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const headingWindow = document.getElementById("headingWindow");
   const headingCard = document.getElementById("headingCard");
   const greenModeBtn = document.getElementById("greenModeBtn");
-
   const demoBtn = document.getElementById("demoBtn");
   const failBtn = document.getElementById("failBtn");
   const warningBox = document.getElementById("warningBox");
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mark.className = isMajor ? "mark-line major-mark" : "mark-line minor-mark";
       mark.style.left = markX + "px";
       mark.style.top = markY + "px";
-      mark.style.transform = "translate(-50%, -50%) rotate(" + i + "deg)";
+      mark.style.transform = `translate(-50%, -50%) rotate(${i}deg)`;
       headingCard.appendChild(mark);
 
       if (isMajor) {
@@ -70,18 +69,15 @@ document.addEventListener("DOMContentLoaded", function () {
     headingWindow.textContent = String(heading).padStart(3, "0");
 
     if (!isFailed) {
-      headingCard.style.transform = "rotate(" + (-heading) + "deg)";
+      headingCard.style.transform = `rotate(${-heading}deg)`;
     }
   }
 
   function toggleGreenMode() {
     document.body.classList.toggle("green-mode");
-
-    if (document.body.classList.contains("green-mode")) {
-      greenModeBtn.textContent = "Green Mode: ON";
-    } else {
-      greenModeBtn.textContent = "Green Mode: OFF";
-    }
+    greenModeBtn.textContent = document.body.classList.contains("green-mode")
+      ? "Green Mode: ON"
+      : "Green Mode: OFF";
   }
 
   function toggleFailure() {
@@ -137,18 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
   updateHeading();
 
   headingSlider.addEventListener("input", updateHeading);
-
-  if (greenModeBtn) {
-    greenModeBtn.addEventListener("click", toggleGreenMode);
-  }
-
-  if (demoBtn) {
-    demoBtn.addEventListener("click", toggleDemoFlight);
-  }
-
-  if (failBtn) {
-    failBtn.addEventListener("click", toggleFailure);
-  }
+  greenModeBtn.addEventListener("click", toggleGreenMode);
+  demoBtn.addEventListener("click", toggleDemoFlight);
+  failBtn.addEventListener("click", toggleFailure);
 
   window.addEventListener("resize", function () {
     createMarks();
